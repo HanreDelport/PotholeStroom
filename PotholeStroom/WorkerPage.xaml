@@ -1,0 +1,79 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PotholeStroom.RoadWorkerPage"
+             Title="Road Worker Dashboard"
+             BackgroundColor="White"
+             xmlns:local="clr-namespace:PotholeStroom.Converters">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NotFullyPaidConverter x:Key="NotFullyPaidConverter" />
+            <local:InProgressToVisibilityConverter x:Key="InProgressToVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Add New Pothole" FontSize="24" FontAttributes="Bold" />
+
+            <Entry x:Name="locationEntry" Placeholder="Enter location" />
+            <Entry x:Name="costEntry" Placeholder="Enter repair cost (R)" Keyboard="Numeric" />
+
+            <Button Text="Submit Pothole" Clicked="OnSubmitPotholeClicked" BackgroundColor="#007aff" TextColor="White" />
+
+            <Label x:Name="messageLabel" TextColor="Green" FontSize="14" />
+
+            <Label Text="Your Potholes" FontSize="20" FontAttributes="Bold" Margin="0,20,0,0"/>
+
+            <Picker x:Name="statusPicker"
+                Title="Filter by Status"
+                SelectedIndexChanged="OnStatusFilterChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>All</x:String>
+                        <x:String>In Progress</x:String>
+                        <x:String>Unfinanced</x:String>
+                        <x:String>Finished</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+
+            <CollectionView x:Name="potholesCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Location}" FontAttributes="Bold" FontSize="18" />
+
+                                <!-- Show Remaining and Original Cost if not fully paid -->
+                                <StackLayout IsVisible="{Binding RemainingCost, Converter={StaticResource NotFullyPaidConverter}}">
+                                    <Label Text="{Binding RemainingCost, StringFormat='Remaining: R{0:F2}'}" FontSize="14" />
+                                    <Label Text="{Binding Cost, StringFormat='Original: R{0:F2}'}" FontSize="12" TextColor="Gray" />
+                                </StackLayout>
+
+                                <Label 
+                                    Text="{Binding Status, StringFormat='Status: {0}'}"
+                                    FontSize="14"/>
+
+                                <Button
+                                    Text="Mark as Finished"
+                                    IsVisible="{Binding Status, Converter={StaticResource InProgressToVisibilityConverter}}"
+                                    Clicked="OnFinishedClicked"
+                                    BackgroundColor="Green"
+                                    TextColor="White" />
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

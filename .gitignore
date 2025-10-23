@@ -1,0 +1,25 @@
+Passwords.txt
+
+# Visual Studio temporary files, build results, and caches
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / Resharper
+.idea/
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Firebase local config
+firebaseconfig.json
+
+# MacOS / Linux files
+.DS_Store
+Thumbs.db

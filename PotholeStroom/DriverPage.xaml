@@ -1,0 +1,60 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PotholeStroom.Converters"
+             x:Class="PotholeStroom.DriverPage"
+             Title="Driver Dashboard"
+             BackgroundColor="White">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Available Potholes" FontSize="24" FontAttributes="Bold" />
+
+            <Picker x:Name="statusPicker"
+                Title="Filter by Status"
+                SelectedIndexChanged="OnStatusFilterChanged"
+                SelectedIndex="0">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>All</x:String>
+                        <x:String>Unfinanced</x:String>
+                        <x:String>In Progress</x:String>
+                        <x:String>Finished</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+
+            </Picker>
+
+
+            <CollectionView x:Name="potholesCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Location}" FontAttributes="Bold" FontSize="18" />
+                                <Label Text="{Binding Status, StringFormat='Status: {0}'}" FontSize="14" />
+
+                                <!-- Only show the Donate button if not In Progress -->
+                                <StackLayout x:Name="DonateSection" IsVisible="{Binding Status, Converter={StaticResource StatusToVisibilityConverter}}">
+                                    <Label Text="{Binding RemainingCost, StringFormat='Remaining: R{0:F2}'}" FontSize="14" />
+                                    <Label Text="{Binding Cost, StringFormat='Original: R{0:F2}'}" FontSize="12" TextColor="Gray" />
+                                    <Button Text="Donate" Clicked="OnDonateClicked"/>
+                                </StackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
