@@ -11,6 +11,7 @@
         public string Status { get; set; } = "Unfinanced";
 
         public double RemainingCost => Cost - AmountDonated;
+        public bool WorkerNotification { get; set; } = false;
 
 
     }

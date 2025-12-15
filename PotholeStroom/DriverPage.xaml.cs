@@ -68,6 +68,7 @@ public partial class DriverPage : ContentPage
                 if (selectedPothole.RemainingCost <= 0)
                 {
                     selectedPothole.Status = "In Progress";
+                    selectedPothole.WorkerNotification = true;
                 }
 
                 // Update Firebase
