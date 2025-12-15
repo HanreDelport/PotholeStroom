@@ -1,0 +1,15 @@
+{
+  "rules": {
+    ".read": "now < 1750456800000 && auth != null",
+    ".write": "now < 1750456800000 && auth != null",
+    "potholes": {
+      ".indexOn": ["WorkerId"],
+      ".read": true,
+      ".write": true
+    },
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}
