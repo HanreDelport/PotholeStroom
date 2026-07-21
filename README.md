@@ -81,16 +81,7 @@ This project was initially for a class assignment in university where we had to 
 
 ## 📷 Preview
 
-> *Add screenshots here.*
-
----
-
-## 👨‍💻 Author
-
-**Hanré Delport**
-
-BSc Information Technology Student  
-North-West University
+<img width="470" height="983" alt="PotholeStroom" src="https://github.com/user-attachments/assets/3cdf2ee3-7152-4e6e-94ee-5c95ef62cd84" />
 
 ---
 
